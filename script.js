@@ -32,19 +32,23 @@ var norge = document.getElementById("norge");
 
 
 //Eventlistener för Sverige
-sverige.addEventListener("click", function() {
-    stadLista.innerHTML = "<h1>Städer i Sverige</h1>";
-    for (var i = 0; i <städer.length; i++){
-        if (städer[i].countryid ===1) {
-            
-            stadLista.innerHTML += "<li><button onclick=\"stadInfo(this)\" value=\"" + städer[i].id + "\" class=\"btn btn-success\" id=\"" + städer[i].id + "\">" + städer[i].stadname + "</button></li>";
-        }
+function landKnapp(objButton) {
+    var knappID = Number(objButton.value);
+    
+     for(var i = 0; i<land.length; i++) {
+        if (knappID === land[i].id) {
+            stadLista.innerHTML = "<h1>Städer i " + land[i].countryname + "</h1>";
+         }
     }
-    
-    
-});
+     for(var x = 0; x<städer.length; x++) {
+         console.log(x);
+         if (städer[x].countryid ===knappID) {
+            stadLista.innerHTML += "<li><button onclick=\"stadInfo(this)\" value=\"" + städer[x].id + "\" class=\"btn btn-success\" id=\"" + städer[x].id + "\">" + städer[x].stadname + "</button></li>";
+         }
+    }
+ }
 
-
+//funktion för att skapa info om stad
 function stadInfo(objButton) {
    var knappID = Number(objButton.value);
     for(var i = 0; i<städer.length; i++) {
@@ -57,15 +61,14 @@ function stadInfo(objButton) {
         }
     }
 }
-var personer = 0;
-
+//funktion för att spara stad i localstorage
 function spara(objButton) {
     var knappID = Number(objButton.value);
     for(var i = 0; i<städer.length; i++) {
         if (knappID === städer[i].id) {
             personer += städer[i].population;
             localStorage.setItem(JSON.stringify(städer[i].id), JSON.stringify(städer[i].stadname));
-            localStorage.setItem("personer", JSON.stringify(personer));
         }
     }
 }
+

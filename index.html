@@ -14,10 +14,11 @@
 <body>
     <div id="navbar">
         <ul>
-            <li><button class="btn btn-primary" id="sverige">Sverige</button></li>
-            <li><button class="btn btn-primary" id="finland">Finland</button></li>
-            <li><button class="btn btn-primary" id="norge">Norge</button></li>
+            <li><button onclick="landKnapp(this)" value="1" class="btn btn-primary" id="sverige">Sverige</button></li>
+            <li><button onclick="landKnapp(this)" value="2" class="btn btn-primary" id="finland">Finland</button></li>
+            <li><button onclick="landKnapp(this)" value="3" class="btn btn-primary" id="norge">Norge</button></li>
         </ul>
+        <button value="savedLand" class="btn btn-primary">Besökta Länder</button>
     </div>
     <hr>
     <div id="stadLista">
