@@ -18,3 +18,6 @@ ul {
 #städer h1 {
     display: inline-block;
 }
+#stadLista li {
+    display: inline;
+}
