@@ -106,6 +106,5 @@ function sparadData() {
   function radera() {
       localStorage.clear();
       document.getElementById("besökt").innerHTML = "<h2>Stadlista Raderad</h2>";
-      
-
+      sparadStad = [];
   }
