@@ -24,16 +24,9 @@ fetch("stad.json")
 .catch(error => console.log(error));
 
 
-
-/*Hämtar knappar för länder
-
-var sverige = document.getElementById("sverige");
-var finland = document.getElementById("finland");
-var norge = document.getElementById("norge");*/
-
-
 //Eventlistener för länder
 function landKnapp(objButton) {
+    document.getElementById("besökt").innerHTML = "";
     var knappID = Number(objButton.value);
     
      for(var i = 0; i<land.length; i++) {
@@ -42,7 +35,6 @@ function landKnapp(objButton) {
          }
     }
      for(var x = 0; x<städer.length; x++) {
-         console.log(x);
          if (städer[x].countryid ===knappID) {
             stadLista.innerHTML += "<li><button onclick=\"stadInfo(this)\" value=\"" + städer[x].id + "\" class=\"btn btn-success\" id=\"" + städer[x].id + "\">" + städer[x].stadname + "</button></li>";
          }
@@ -51,7 +43,8 @@ function landKnapp(objButton) {
 
 //funktion för att skapa info om stad
 function stadInfo(objButton) {
-   var knappID = Number(objButton.value);
+    
+    var knappID = Number(objButton.value);
     for(var i = 0; i<städer.length; i++) {
         if (knappID === städer[i].id) {
             document.getElementById("info").innerHTML = "<h1>" + städer[i].stadname + "</h1>";
@@ -68,14 +61,51 @@ function spara(objButton) {
     var knappID = Number(objButton.value);
     for(var i = 0; i<städer.length; i++) {  
         if (knappID === städer[i].id) {
-            sparadStad.push(städer[i].stadname);
-            localStorage.setItem("stad", JSON.stringify(sparadStad));
+            sparadStad.push(städer[i].id);
+            localStorage.setItem("id", JSON.stringify(sparadStad));
         }
     }
 }
 
-
+/*
 //Funktion för att skriva ut sparad data 
 function sparadData() {
-    document.getElementById("info").innerHTML = localStorage.getItem("stad");
+
+    
+    for (var i = 0; i<städer.length; i++) {
+        if (i === städer[i].id) {
+        document.getElementById("besökt").innerHTML += "<h4>" + städer[i].stadname + "</h4>";
+        } else {
+            console.log("no");
+        }
+    }
 }
+*/
+function sparadData() {
+    document.getElementById("info").innerHTML = "";
+    document.getElementById("stadLista").innerHTML = "";
+    var folkmängd = 0;
+    var minaStäder = JSON.parse(localStorage.getItem("id"));
+    document.getElementById("besökt").innerHTML = "<hr><h1>Städer du har besökt:</h1>";
+    
+    minaStäder.forEach(myFunction);
+
+    function myFunction(value) {
+
+        for (var i = 0; i<städer.length; i++) {
+            if (städer[i].id === value) {
+            document.getElementById("besökt").innerHTML += "<h4>" + städer[i].stadname + "</h4>";
+            folkmängd += städer[i].population; 
+            }                    
+        }  
+      }
+      document.getElementById("besökt").innerHTML += "<h4>Personer du har sett: " + folkmängd +  "</h4>";
+      document.getElementById("besökt").innerHTML += "<button onclick=\"radera()\" class=\"btn btn-warning\">Radera Städer</button>";
+  }
+
+  function radera() {
+      localStorage.clear();
+      document.getElementById("besökt").innerHTML = "<h2>Stadlista Raderad</h2>";
+      
+
+  }
