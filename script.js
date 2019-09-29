@@ -1,5 +1,6 @@
 var städer;
 var land;
+var sparadStad = [];
 var stadH1 = document.getElementById("stad");
 var stadLista = document.getElementById("stadLista");
 
@@ -24,14 +25,14 @@ fetch("stad.json")
 
 
 
-//Hämtar knappar för länder
+/*Hämtar knappar för länder
 
 var sverige = document.getElementById("sverige");
 var finland = document.getElementById("finland");
-var norge = document.getElementById("norge");
+var norge = document.getElementById("norge");*/
 
 
-//Eventlistener för Sverige
+//Eventlistener för länder
 function landKnapp(objButton) {
     var knappID = Number(objButton.value);
     
@@ -63,12 +64,18 @@ function stadInfo(objButton) {
 }
 //funktion för att spara stad i localstorage
 function spara(objButton) {
+
     var knappID = Number(objButton.value);
-    for(var i = 0; i<städer.length; i++) {
+    for(var i = 0; i<städer.length; i++) {  
         if (knappID === städer[i].id) {
-            personer += städer[i].population;
-            localStorage.setItem(JSON.stringify(städer[i].id), JSON.stringify(städer[i].stadname));
+            sparadStad.push(städer[i].stadname);
+            localStorage.setItem("stad", JSON.stringify(sparadStad));
         }
     }
 }
 
+
+//Funktion för att skriva ut sparad data 
+function sparadData() {
+    document.getElementById("info").innerHTML = localStorage.getItem("stad");
+}
