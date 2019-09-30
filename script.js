@@ -1,6 +1,11 @@
+
+//Deklarerar variabler
+
 var städer;
 var land;
 var sparadStad = [];
+
+//Hämtar id för div
 var stadH1 = document.getElementById("stad");
 var stadLista = document.getElementById("stadLista");
 
@@ -25,6 +30,7 @@ fetch("stad.json")
 
 
 //Eventlistener för länder
+//Hämtar value för den knapp man tryckt på, kollar om det stämmer överrens med land id.
 function landKnapp(objButton) {
     document.getElementById("besökt").innerHTML = "";
     var knappID = Number(objButton.value);
@@ -41,7 +47,11 @@ function landKnapp(objButton) {
     }
  }
 
+
+
+
 //funktion för att skapa info om stad
+//Hämtar value för knapp. Kollar om knapp = städer ID
 function stadInfo(objButton) {
     
     var knappID = Number(objButton.value);
@@ -55,7 +65,13 @@ function stadInfo(objButton) {
         }
     }
 }
+
+
+
+
 //funktion för att spara stad i localstorage
+//hämtar value för knapp. Slänger in det som man har sparat in i en Array.
+//Lägger sedan in det i localstorage
 function spara(objButton) {
 
     var knappID = Number(objButton.value);
@@ -67,31 +83,24 @@ function spara(objButton) {
     }
 }
 
-/*
-//Funktion för att skriva ut sparad data 
-function sparadData() {
 
-    
-    for (var i = 0; i<städer.length; i++) {
-        if (i === städer[i].id) {
-        document.getElementById("besökt").innerHTML += "<h4>" + städer[i].stadname + "</h4>";
-        } else {
-            console.log("no");
-        }
-    }
-}
-*/
+
+
+//Funktion för att skriva ut sparad data, samt lägga till en "radera"-knapp
 function sparadData() {
-    document.getElementById("info").innerHTML = "";
+    document.getElementById("info").innerHTML = "";     //Rensar upp på sidan
     document.getElementById("stadLista").innerHTML = "";
     var folkmängd = 0;
-    var minaStäder = JSON.parse(localStorage.getItem("id"));
+    var minaStäder = JSON.parse(localStorage.getItem("id"));    //hämtar de ID som man sparat och lägger till i en array
     document.getElementById("besökt").innerHTML = "<hr><h1>Städer du har besökt:</h1>";
     
+
+    //Går igenom minaStäder array och skirver ut varje index till value
     minaStäder.forEach(myFunction);
-
     function myFunction(value) {
+        
 
+        //Om value = städer ID, hämta det sparade json datan för stad och population
         for (var i = 0; i<städer.length; i++) {
             if (städer[i].id === value) {
             document.getElementById("besökt").innerHTML += "<h4>" + städer[i].stadname + "</h4>";
@@ -99,12 +108,13 @@ function sparadData() {
             }                    
         }  
       }
-      document.getElementById("besökt").innerHTML += "<h4>Personer du har sett: " + folkmängd +  "</h4>";
-      document.getElementById("besökt").innerHTML += "<button onclick=\"radera()\" class=\"btn btn-warning\">Radera Städer</button>";
+    document.getElementById("besökt").innerHTML += "<h4>Personer du har sett: " + folkmängd +  "</h4>";
+    document.getElementById("besökt").innerHTML += "<button onclick=\"radera()\" class=\"btn btn-warning\">Radera Städer</button>";
   }
-
-  function radera() {
-      localStorage.clear();
-      document.getElementById("besökt").innerHTML = "<h2>Stadlista Raderad</h2>";
-      sparadStad = [];
+    //Funktion för att radera sina besökta städer
+    //Nollställer localstorage, nollställer den array som man sparat i.
+    function radera() {
+        localStorage.clear();
+        document.getElementById("besökt").innerHTML = "<h2>Stadlista Raderad</h2>";
+        sparadStad = [];
   }
