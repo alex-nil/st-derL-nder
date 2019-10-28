@@ -11,7 +11,7 @@ var stadLista = document.getElementById("stadLista");
 
 
 //Hämtar json med fetch
-fetch("land.json")
+fetch("https://alextestazure.azurewebsites.net/land")
 .then(function(data){
     return data.json();
 })
@@ -19,7 +19,7 @@ fetch("land.json")
     land = myJson;
 })
 .catch(error => console.log(error));
-fetch("stad.json")
+fetch("https://alextestazure.azurewebsites.net/stad")
 .then(function(data){
     return data.json();
 })
